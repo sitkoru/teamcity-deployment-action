@@ -29,17 +29,17 @@ runs:
             curl --location --request POST '${{ inputs.url }}/app/rest/buildQueue' \
             --header 'Content-Type: application/json' \
             --header 'Authorization: Bearer ${{ inputs.token }}' \
-            --data-raw '{
-              "branchName": "${{ inputs.version }}",
-              "buildType": {
-                "id": "$id"
+            --data-raw "{
+              \"branchName\": \"${{ inputs.version }}\",
+              \"buildType\": {
+                \"id\": \"$id\"
               },
-              "properties": {
-                "property": [{
-                  "name": "env.Version",
-                  "value": "${{ inputs.version }}"
+              \"properties\": {
+                \"property\": [{
+                  \"name\": \"env.Version\",
+                  \"value\": \"${{ inputs.version }}\"
                 }
                 ]
               }
-            }'
+            }"
           done
