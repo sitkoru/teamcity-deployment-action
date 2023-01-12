@@ -1,0 +1,45 @@
+name: "sitkoru/teamcity-deployment-action"
+description: "Action to manage Teamcity Deployments"
+branding:
+  icon: "package"
+  color: "blue"
+
+inputs:
+  version:
+    description: "Service version"
+    required: false
+  token:
+    description: "Teamcity token"
+    required: true
+  url:
+    description: "Teamcity root url"
+    required: true
+  ids:
+    description: "Teamcity build ids"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Trigger deployment
+      shell: bash
+      run: |
+          export IFS=";"
+          for id in '${{ input.ids }}'; do
+            curl --location --request POST '${{ inputs.url }}/app/rest/buildQueue' \
+            --header 'Content-Type: application/json' \
+            --header 'Authorization: Bearer ${{ inputs.token }}' \
+            --data-raw '{
+              "branchName": "${{ inputs.version }}",
+              "buildType": {
+                "id": "$id"
+              },
+              "properties": {
+                "property": [{
+                  "name": "env.Version",
+                  "value": "${{ inputs.version }}"
+                }
+                ]
+              }
+            }'
+          done
