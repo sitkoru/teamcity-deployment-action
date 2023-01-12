@@ -7,7 +7,7 @@ branding:
 inputs:
   version:
     description: "Service version"
-    required: false
+    required: true
   token:
     description: "Teamcity token"
     required: true

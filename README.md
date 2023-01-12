@@ -34,5 +34,5 @@ jobs:
           token: ${{ secrets.TEAMCITY_TOKEN }}
           url: ${{ secrets.TEAMCITY_URL }}
           ids: ${{ secrets.TEAMCITY_BUILD_IDS }}
-          version: ${{ steps.prep.outputs.version }}
+          version: ${{ github.event.deployment.description }}
 ```
