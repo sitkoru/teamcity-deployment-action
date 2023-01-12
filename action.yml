@@ -25,7 +25,7 @@ runs:
       shell: bash
       run: |
           export IFS=";"
-          for id in '${{ input.ids }}'; do
+          for id in '${{ inputs.ids }}'; do
             curl --location --request POST '${{ inputs.url }}/app/rest/buildQueue' \
             --header 'Content-Type: application/json' \
             --header 'Authorization: Bearer ${{ inputs.token }}' \
